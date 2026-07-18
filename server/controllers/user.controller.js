@@ -68,6 +68,17 @@ const logoutUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "User logged out"));
 });
 
+const searchUsers = asyncHandler(async (req, res) => {
+  const { username } = req.query;
+  if (!username) throw new ApiError(400, "username query param is required");
+
+  const users = await User.find({
+    username: { $regex: username, $options: "i" },
+  }).select("username fullName").limit(10);
+
+  return res.status(200).json(new ApiResponse(200, users, "Users fetched"));
+});
+
 const refreshAccessToken = asyncHandler(async (req, res) => {
   const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken;
   if (!incomingRefreshToken) throw new ApiError(401, "Unauthorized request");
@@ -96,4 +107,4 @@ const getCurrentUser = asyncHandler(async (req, res) => {
   return res.status(200).json(new ApiResponse(200, req.user, "Current user fetched successfully"));
 });
 
-module.exports = { registerUser, loginUser, logoutUser, refreshAccessToken, getCurrentUser };
+module.exports = { registerUser, loginUser, logoutUser, searchUsers,refreshAccessToken, getCurrentUser,};
