@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs"); // matches what's already in your package.json
+const bcrypt = require("bcryptjs"); 
 
 const userSchema = new Schema(
   {
