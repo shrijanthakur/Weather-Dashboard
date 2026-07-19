@@ -16,8 +16,8 @@ async function fetchWeatherData(endpoint, req, res, errorLabel) {
 
     const cached = cache.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
-        return res.json(cached.data);
         console.log("cached"); 
+        return res.json(cached.data);  
     }
 
     const apiUrl = `https://api.openweathermap.org/data/2.5/${endpoint}?units=metric&${query}&appid=${process.env.OPENWEATHER_KEY}`;
