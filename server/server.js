@@ -13,6 +13,10 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
+app.get("/", (req, res) => {
+  res.json({ message: "Weather Dashboard API is running", status: "ok" });
+});
+
 app.use("/api/weather", weatherRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/favorites", favoriteRoutes);
