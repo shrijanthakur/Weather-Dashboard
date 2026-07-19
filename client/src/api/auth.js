@@ -1,5 +1,7 @@
+import { API_URL } from "./config";
+
 export async function registerUser(form) {
-  const res = await fetch("/api/users/register", {
+  const res = await fetch(`${API_URL}/api/users/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(form),
@@ -10,7 +12,7 @@ export async function registerUser(form) {
 }
 
 export async function loginUser({ username, password }) {
-  const res = await fetch("/api/users/login", {
+  const res = await fetch(`${API_URL}/api/users/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password }),
@@ -21,7 +23,7 @@ export async function loginUser({ username, password }) {
 }
 
 export async function logoutUser(token) {
-  return fetch("/api/users/logout", {
+  return fetch(`${API_URL}/api/users/logout`, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
   });
